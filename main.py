@@ -7,7 +7,7 @@ from time import sleep
 DNS_SERVER = "192.168.1.1"
 KEY_NAME = "key_name"
 KEY_SECRET = "abcdefg=="
-DNS_SERVER = ""
+DNS_SERVER = "192.168.1.1"
 
 
 def format_ipv6_for_arpa(ipv6):
@@ -41,7 +41,8 @@ def get_arp(mac):
 
 def dig_reverse_lookup(ipv4):
     """ Perform reverse DNS lookup using `dig`. """
-    return subprocess.run(["dig", "+short", "-x", ipv4, f{@"DNS_SERVER"}], capture_output=True, text=True).stdout.strip()
+    return subprocess.run(["dig", "+short", "-x", ipv4, f"@{DNS_SERVER}"], capture_output=True,
+                          text=True).stdout.strip()
 
 
 def add_ptr_record(ptr_record, ipv6):
