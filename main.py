@@ -16,10 +16,12 @@ def format_ipv6_for_arpa(ipv6):
     return reversed_ip
 
 
-def validate_ipv6(ipv6):
+def validate_ipv6(ipv6, nofe80=True):
     """ Validate the IPv6 address format. """
     try:
-        ipaddress.IPv6Address(ipv6)
+        addr = ipaddress.IPv6Address(ipv6)
+        if str(addr)[0:4] == "fe80" and nofe80:
+            return False
         return True
     except ipaddress.AddressValueError:
         return False
